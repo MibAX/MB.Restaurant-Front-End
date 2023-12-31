@@ -16,6 +16,7 @@ export class CreateUpdateIngredientComponent implements OnInit {
   pageMode: PageMode = PageMode.Create;
 
   pageModeEnum = PageMode;
+  ingredientName!: string;
 
   constructor(
     private fb: FormBuilder,
@@ -23,7 +24,7 @@ export class CreateUpdateIngredientComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private toaster: ToasterService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.buildForm();
@@ -39,7 +40,7 @@ export class CreateUpdateIngredientComponent implements OnInit {
       if (this.pageMode == PageMode.Create) {
         this.createIngredient();
       } else {
-        //this.updateIngredient();
+        this.updateIngredient();
       }
     }
   }
@@ -65,20 +66,45 @@ export class CreateUpdateIngredientComponent implements OnInit {
   private loadIngredient(): void {
     this.ingredientSvc.get(this.ingredientId).subscribe({
       next: (ingredientFromApi: IngredientDetailsDto) => {
+
         this.form.patchValue(ingredientFromApi);
+
+        this.ingredientName = ingredientFromApi.name;
       },
     });
   }
 
   private createIngredient(): void {
+
+
     this.ingredientSvc.create(this.form.value).subscribe({
+
       next: (ingredientFromApi: IngredientDetailsDto) => {
 
         const options: Partial<Toaster.ToastOptions> = {
           messageLocalizationParams: [ingredientFromApi.name],
         };
+        this.toaster.success('::CreatedSuccessfully', undefined, options);
 
-        this.toaster.success('::CreatedSuccessfully', 'Success', options);
+        this.router.navigate(['/ingredients']);
+      },
+    });
+  }
+
+
+  private updateIngredient(): void {
+
+
+    this.ingredientSvc.update(this.ingredientId, this.form.value).subscribe({
+
+      next: (ingredientFromApi: IngredientDetailsDto) => {
+
+        const options: Partial<Toaster.ToastOptions> = {
+          messageLocalizationParams: [ingredientFromApi.name],
+        };
+        this.toaster.success('::UpdatedSuccessfully', undefined, options);
+
+        this.router.navigate(['/ingredients']);
       },
     });
   }
