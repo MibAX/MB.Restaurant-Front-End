@@ -1,0 +1,46 @@
+<div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col col-md-6">
+          <h5 class="card-title">
+            Ingredient
+            <span class="text-primary">{{ ingredient?.name }}</span>
+        </h5>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+        <hr>
+        <div class="row">
+            <div class="col-lg-2">
+                <span class="">Name</span>
+            </div>
+            <div class="col-lg-4">
+                <span class="fw-bold text-dark">{{ ingredient?.name }}</span>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-lg-2">
+                <span class="">Description</span>
+            </div>
+            <div class="col-lg-4">
+                <span class="fw-bold text-dark">{{ ingredient?.description }}</span>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-lg-2">
+                <span class="">Price</span>
+            </div>
+            <div class="col-lg-4">
+                <span class="fw-bold text-dark">{{ ingredient?.price | currency }}</span>
+            </div>
+        </div>
+
+        <div class="mt-3">
+            <button mat-raised-button color="accent" [routerLink]="['/ingredients']">Back to List</button>
+        </div>
+
+    </div>
+  </div>
