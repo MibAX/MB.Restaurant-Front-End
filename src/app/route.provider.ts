@@ -13,7 +13,7 @@ function configureRoutes(routesService: RoutesService) {
         name: '::Menu:Home',
         iconClass: 'fas fa-home',
         order: 1,
-        layout: eLayoutType.application,
+        layout: eLayoutType.application
       },
       {
         path: '/ingredients',
@@ -21,6 +21,15 @@ function configureRoutes(routesService: RoutesService) {
         iconClass: 'fas fa-carrot',
         order: 10,
         layout: eLayoutType.application,
+        requiredPolicy: "Restaurant.Ingredients"
+      },
+      {
+        path: '/meals',
+        name: '::Menu:Meals',
+        iconClass: 'fas fa-utensils',
+        order: 10,
+        layout: eLayoutType.application,
+        requiredPolicy: "Restaurant.Meals"
       },
     ]);
   };
